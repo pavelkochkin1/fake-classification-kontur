@@ -2,7 +2,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from pandas.compat import u
 import torch
 import yaml
 from catalyst.dl import SupervisedRunner

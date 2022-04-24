@@ -11,7 +11,6 @@ from nltk.corpus import stopwords
 from torch.utils.data import DataLoader
 
 from data import preproccess_corpus, TextClassificationDataset
-from model import BertForSequenceClassification
 from evaluating import make_prediction
  
 def createParser ():
@@ -74,7 +73,7 @@ if __name__ == '__main__':
             shuffle=False,
         )
     }
-    model = torch.load("logdir/best_model.pth")
+    model = torch.load("best_model.pth")
     model.to(get_device())
 
     test_df[params['data']['label_field_name']] = make_prediction(

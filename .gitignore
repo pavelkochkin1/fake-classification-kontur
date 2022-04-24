@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 task.md
+.DS_Store

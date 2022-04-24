@@ -35,8 +35,8 @@ if __name__ == '__main__':
     if namespace.text is not None:
         test_df = pd.DataFrame(
             {
-                params['data']['text_field_name']: namespace.text,
-                params['data']['label_field_name']: 0,
+                params['data']['text_field_name']: [namespace.text],
+                params['data']['label_field_name']: [0],
             }
         )
 

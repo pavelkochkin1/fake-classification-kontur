@@ -13,17 +13,16 @@ def get_project_root() -> Path:
 
 
 def clear_text(
-        text: str, 
-        just_letters: bool = False,
-    ) -> str:
+    text: str, 
+    just_letters: bool = False,
+) -> str:
     """
     Converts a line to lowercase or delete everything except letters.
-
     Args:
         text: str - a string to clear
 
     Returns:
-        str
+        string in lowercase
     """
 
     if just_letters:
@@ -35,18 +34,17 @@ def clear_text(
     
 
 def clean_stop_words(
-        text: str, 
-        stopwords: List[str],
-    ) -> str:
+    text: str, 
+    stopwords: List[str],
+) -> str:
     """
     Removes stop words from the string.
-
     Args:
         text: str - a string to remove stopwords
         stopwords: List[str] - a list with stopwords
 
     Returns:
-        str
+        string without stopwords
     """
 
     text = [word for word in text.split() if word not in stopwords]
@@ -55,11 +53,10 @@ def clean_stop_words(
 lemmatizer = pymorphy2.MorphAnalyzer()
 
 def lemmatize(
-        corpus: List[str],
-    ) -> List[str]:
+    corpus: List[str],
+) -> List[str]:
     """
     Brings all the words for the texts from the corpus to the original form.
-
     Args:
         corpus: List[str]
 
@@ -80,11 +77,11 @@ def lemmatize(
 
 
 def preproccess_corpus(
-        df: Union[pd.Series, pd.DataFrame],
-        text_column: Union[str, None] = None,
-        stopwords: Union[List[str], None] = None,
-        lemmatize: bool = True,
-    ) -> pd.Series:
+    df: Union[pd.Series, pd.DataFrame],
+    text_column: Union[str, None] = None,
+    stopwords: Union[List[str], None] = None,
+    lemmatize: bool = True,
+) -> pd.Series:
     """
     Full text preprocessing.
 
@@ -111,5 +108,6 @@ def preproccess_corpus(
     
     return pd.Series(result, index = df.index)
 
-def get_device():
+def get_device() -> str:
+    """Videocard access check"""
     return 'cuda' if torch.cuda.is_available() else 'cpu'

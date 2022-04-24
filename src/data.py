@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 import nltk
 from nltk.corpus import stopwords
 
-from utils import preproccess_corpus, get_project_root
+from utils import preproccess_corpus
 
 class TextClassificationDataset(Dataset):
     """
@@ -51,7 +51,8 @@ class TextClassificationDataset(Dataset):
         return len(self.texts)
     
     def __getitem__(self, index) -> Mapping[str, torch.Tensor]:
-        """Gets element of the dataset by index
+        """
+        Gets element of the dataset by index
         Args:
             index: (int) - index of the element in the dataset
         Returns:
@@ -91,6 +92,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
     Returns:
         A tuple with 2 dictionaries
     """
+
     # reading CSV files to Pandas dataframes
     train_df = pd.read_csv(
         Path(params['data']['path_to_data']) / params['data']['train_filename'],
@@ -118,6 +120,8 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
     else:
         stop_words = None
 
+
+    # preprocessing data
     train_df[params['data']['text_field_name']] = preproccess_corpus(
         df=train_df,
         text_column=params['data']['text_field_name'],
@@ -162,6 +166,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
         model_name=params["model"]["model_name"],
     )
 
+    # for reproducability
     set_global_seed(params["general"]["seed"])
 
     # creating PyTorch data loaders and placing them in dictionaries (for Catalyst)

@@ -14,6 +14,9 @@ from data import preproccess_corpus, TextClassificationDataset
 from evaluating import make_prediction
  
 def createParser ():
+    """
+    Parsing command's arguments in Terminal
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument ('-f', '--file')
     parser.add_argument ('-t', '--text')
@@ -22,13 +25,17 @@ def createParser ():
  
  
 if __name__ == '__main__':
+
+    # read params
     project_root: Path = get_project_root()
     with open(str(project_root / "config.yml")) as f:
         params = yaml.load(f, Loader=yaml.FullLoader)
 
+    # parse arguments
     parser = createParser()
     namespace = parser.parse_args(sys.argv[1:])
 
+    # load best model
     model = torch.load("best_model.pth")
     model.to(get_device())
  
@@ -52,6 +59,8 @@ if __name__ == '__main__':
     else:
         stop_words = None
 
+
+    # preprocessing texts
     test_df[params['data']['text_field_name']] = preproccess_corpus(
         df=test_df,
         text_column=params['data']['text_field_name'],
@@ -59,6 +68,7 @@ if __name__ == '__main__':
         lemmatize=params['preprocessing']['lemmatization'],
     )
 
+    # creating dataset
     test_dataset = TextClassificationDataset(
         texts=test_df[params["data"]["text_field_name"]].values.tolist(),
         labels=test_df[params["data"]["label_field_name"]].values,
@@ -66,6 +76,7 @@ if __name__ == '__main__':
         model_name=params["model"]["model_name"],
     )
 
+    # creating dataloader
     test_loader = {
         "test": DataLoader(
             dataset=test_dataset,
@@ -73,14 +84,15 @@ if __name__ == '__main__':
             shuffle=False,
         )
     }
-    model = torch.load("best_model.pth")
-    model.to(get_device())
 
+    # get prediction
     test_df[params['data']['label_field_name']] = make_prediction(
         loader=test_loader,
         device=get_device(),
         model=model,
     )
+
+    # saving predictions
     if namespace.file is not None:
         test_df[[params['data']['text_field_name'], params['data']['label_field_name']]].to_csv(
             namespace.file[:-4] + "_pred.tsv",

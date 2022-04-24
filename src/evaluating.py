@@ -9,13 +9,22 @@ def make_prediction(
     loader: DataLoader,
     device: str,
     model: BertForSequenceClassification,
-    ) -> np.array:
+) -> np.array:
+    """
+    Calculates predictions for loader.
+    Args:
+        loader: DataLoader - from TextClassifierDataset
+        device: str - `cuda` or `cpu`
+        model: BertForSequenceClassification - pretrained model
+    Returns:
+        array with predictions
+        size: (bs, 1)
+    """
 
     pred_labels = []
 
     for batch in tqdm(loader["test"]):
         inputs = batch['features'].to(device)
-        # labels = batch['targets'].to(device)
         attention_mask = batch['attention_mask'].to(device)
         output = model(inputs, attention_mask).argmax(axis=1).cpu()
         pred_labels.append(output)
@@ -30,6 +39,13 @@ def classification_rep(
     device: str,
     model: BertForSequenceClassification,
 ):
+    """
+    Prints classification report from sklearn for validation data.
+    Args:
+        loader: DataLoader - with `valid` key
+        device: str - `cuda` or `cpu`
+        model: BertForSequenceClassification - pretrained model
+    """
     pred_labels = []
     true_labels = []
 

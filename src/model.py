@@ -20,22 +20,24 @@ class BertForSequenceClassification(nn.Module):
         """
         super().__init__()
 
+        #download config for our model
         config = AutoConfig.from_pretrained(
             pretrained_model_name, 
             num_labels = num_classes,
         )
-
+        
+        # download pretrained weights and set some new layers to fine-tune
         self.model = AutoModel.from_pretrained(pretrained_model_name, config=config)
         self.fc = nn.Linear(config.hidden_size, config.hidden_size)
         self.classifier = nn.Linear(config.hidden_size, num_classes)
         self.dropout = nn.Dropout(dropout)
     
     def forward(
-            self, 
-            features, 
-            attention_mask = None, 
-            head_mask = None,
-        ):
+        self, 
+        features, 
+        attention_mask = None, 
+        head_mask = None,
+     ):
         """Computes class scores for the input sequence.
         Args:
             features: torch.Tensor - ids of each token,

@@ -1,0 +1,4 @@
+transformers
+catalyst
+pymorphy2
+torch

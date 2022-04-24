@@ -2,3 +2,8 @@ transformers
 catalyst
 pymorphy2
 torch
+pandas
+scikit-learn
+nltk
+numpy
+tqdm

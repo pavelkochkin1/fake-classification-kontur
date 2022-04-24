@@ -91,7 +91,6 @@ print("Model saving...")
 torch.save(runner.model, "best_model.pth")
 
 
-
 # test data prediction 
 test_df = pd.read_csv(
     Path(params['data']['path_to_data']) / params['data']['test_filename'],
@@ -106,9 +105,8 @@ test_df[params['data']['label_field_name']] = make_prediction(
 
 test_df[[params['data']['text_field_name'], params['data']['label_field_name']]].to_csv(
     params['data']['path_to_test_pred_scores'], 
-    sep=params['data']['separator'],
+    sep=f"{params['data']['separator']}",
 )
-
 print(f"Prediction in {params['data']['path_to_test_pred_scores']}")
 
 

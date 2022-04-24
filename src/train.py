@@ -30,6 +30,7 @@ prepare_cudnn(deterministic=True)
 
 # read and process data
 train_val_loaders, test_loaders = get_ready_data(params)
+print("Read and processed data...")
 
 
 # initialize the model
@@ -58,6 +59,7 @@ runner = SupervisedRunner(input_key=("features", "attention_mask"))
 
 
 # finally, training the model with Catalyst
+print("Started training...")
 runner.train(
     model=model,
     criterion=criterion,
@@ -85,7 +87,9 @@ runner.train(
 
 
 # saving mode
+print("Model saving...")
 torch.save(runner.model, "best_model.pth")
+
 
 
 # test data prediction 
@@ -105,6 +109,7 @@ test_df[[params['data']['text_field_name'], params['data']['label_field_name']]]
     sep=params['data']['separator'],
 )
 
+print(f"Prediction in {params['data']['path_to_test_pred_scores']}")
 
 
 

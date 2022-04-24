@@ -105,7 +105,7 @@ test_df[params['data']['label_field_name']] = make_prediction(
 
 test_df[[params['data']['text_field_name'], params['data']['label_field_name']]].to_csv(
     params['data']['path_to_test_pred_scores'], 
-    sep=f"{params['data']['separator']}",
+    sep=str(params['data']['separator']),
 )
 print(f"Prediction in {params['data']['path_to_test_pred_scores']}")
 

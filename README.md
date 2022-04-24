@@ -21,10 +21,13 @@
 Я попробовал достаточно много классических моделей
 
 1. TF-IDF + SGD:
+2. 
 ![alt text](img/tfidf_sgd.png)
 2. TF-IDF + MultinomialNB:
+3. 
 ![alt text](img/tfidf_MultinomialNB.png)
 3. LightAutoML with DeepPavlov Bert:
+4. 
 ![alt text](img/lama.png)
 
 Также я эксперементировал со стоп-словами и лемматизацией - ничего хорошего из этого не вышло, но в коде возможность удалять стоп-слова и получать лемматизированные тексты я оставил.

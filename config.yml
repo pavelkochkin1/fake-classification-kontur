@@ -1,8 +1,8 @@
 data:
   path_to_data: dataset/
-  train_filename: train.csv
+  train_filename: train.tsv
   valid_filename: None
-  test_filename: test.csv
+  test_filename: test.tsv
   separator: \t
   text_field_name: title
   label_field_name: is_fake

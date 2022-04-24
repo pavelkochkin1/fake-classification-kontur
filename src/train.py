@@ -94,7 +94,7 @@ classification_rep(
 )
 
 
-# saving mode
+# saving model
 print("Model saving...")
 torch.save(runner.model, "best_model.pth")
 
@@ -114,14 +114,4 @@ test_df[params['data']['label_field_name']] = make_prediction(
 test_df[[params['data']['text_field_name'], params['data']['label_field_name']]].to_csv(
     params['data']['path_to_test_pred_scores'],
 )
-print(f"Prediction in {params['data']['path_to_test_pred_scores']}")
-
-
-
-
-# model = runner.model
-# test_df = make_prediction(
-#     test_loader=test_loaders,
-#     device=get_device(),
-#     model=model,
-# )
+print(f"Test data prediction in {params['data']['path_to_test_pred_scores']}")

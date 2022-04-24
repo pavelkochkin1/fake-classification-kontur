@@ -131,6 +131,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
         stopwords=stop_words,
         lemmatize=params['preprocessing']['lemmatization'],
     )
+    print(valid_df)
 
     test_df[params['data']['text_field_name']] = preproccess_corpus(
         df=test_df,

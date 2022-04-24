@@ -150,7 +150,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
 
     valid_dataset = TextClassificationDataset(
         texts=valid_df[params["data"]["text_field_name"]].values.tolist(),
-        labels=train_df[params["data"]["label_field_name"]].values,
+        labels=valid_df[params["data"]["label_field_name"]].values,
         max_seq_length=params["model"]["max_seq_length"],
         model_name=params["model"]["model_name"],
     )

@@ -15,7 +15,7 @@ from catalyst.utils import prepare_cudnn, set_global_seed
 from data import get_ready_data
 from model import BertForSequenceClassification
 from utils import get_device, get_project_root, get_device
-from inference import make_prediction
+from evaluating import make_prediction, classification_rep
 
 
 # loading config params
@@ -83,6 +83,14 @@ runner.train(
     num_epochs=int(params["training"]["num_epochs"]),
     load_best_on_end=True,
     verbose=True,
+)
+
+
+# check the score on validation data
+classification_rep(
+    train_val_loaders,
+    device=get_device(),
+    model=runner.model,
 )
 
 

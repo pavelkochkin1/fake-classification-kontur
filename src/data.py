@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 import nltk
 from nltk.corpus import stopwords
 
-from utils import preproccess_corpus
+from utils import preproccess_corpus, get_project_root
 
 class TextClassificationDataset(Dataset):
     """
@@ -131,7 +131,6 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
         stopwords=stop_words,
         lemmatize=params['preprocessing']['lemmatization'],
     )
-    print(valid_df)
 
     test_df[params['data']['text_field_name']] = preproccess_corpus(
         df=test_df,
@@ -150,7 +149,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
     )
 
     valid_dataset = TextClassificationDataset(
-        texts=valid_df[params["data"]["text_field_name"]],
+        texts=valid_df[params["data"]["text_field_name"]].values.tolist(),
         labels=train_df[params["data"]["label_field_name"]].values,
         max_seq_length=params["model"]["max_seq_length"],
         model_name=params["model"]["model_name"],

@@ -101,7 +101,7 @@ test_df = pd.read_csv(
 test_df[params['data']['label_field_name']] = make_prediction(
     loader=test_loaders, 
     device=get_device(), 
-    model=BertForSequenceClassification,
+    model=runner.model,
 )
 
 test_df[[params['data']['text_field_name'], params['data']['label_field_name']]].to_csv(

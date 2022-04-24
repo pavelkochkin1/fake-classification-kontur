@@ -98,10 +98,7 @@ def get_ready_data(params: dict) -> Tuple[dict, dict]:
     )
     if params['data']['valid_filename'] == 'None':
         train_df, valid_df = train_test_split(
-            train_df[[
-                params['data']['text_field_name'], 
-                params['data']['label_field_name'],
-            ]], 
+            train_df,
             test_size=0.1, 
             random_state=params['general']['seed'],
         )
